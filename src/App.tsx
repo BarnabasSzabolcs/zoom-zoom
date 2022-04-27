@@ -1,26 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Display } from './components/Display';
+import { HUD } from './components/HUD';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface State{
+  animIndex: number,
+  play: boolean
+}
+interface Props{
+}
+
+class App extends React.Component<Props, State> {
+  constructor(props: Props){
+    super(props)
+    this.state = {
+      animIndex: 0,
+      play: false
+    }
+  }
+  render() {
+    return (
+      <div className="App">
+        <Display 
+          animIndex={this.state.animIndex}
+          play={this.state.play}
+          onAnimIndexChange={animIndex=>this.setState({animIndex})}/>
+        <HUD 
+          animIndex={this.state.animIndex}
+          onAnimIndexChange={animIndex=>this.setState({animIndex})}
+          play={this.state.play}
+          onPlayChange={play=>this.setState({play})}
+          />
+      </div>
+    );
+  }
 }
 
 export default App;
