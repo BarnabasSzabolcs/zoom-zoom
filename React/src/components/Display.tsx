@@ -49,7 +49,7 @@ export class Display extends React.Component<Props, State> {
       conf.push({style: {backgroundImage: 'none'}, ...o})
     }
     this.state = {
-      direction: 0,
+      direction: 1,
       conf,
       grey: false,
       containerStyle: {transform: 'none'},
@@ -63,17 +63,15 @@ export class Display extends React.Component<Props, State> {
   async componentDidMount() {
     await this._initSizes();
     this.nextFrame(0);
-    this.updateIntervalId(this.props.play);
+    this.updateIntervalId();
   }
   private async _initSizes(){
     for(const o of this.state.conf){
        const width = await this._getWidth(o.text);
        const svg_i = svgHtml.replace('TEXT', o.text).replace('1234', width.toString());
        o.style = {backgroundImage: `url('data:image/svg+xml;utf8,${svg_i}')`};
-       console.log(width, o.text, o.style);
     }
     this.setState({conf: this.state.conf});
-    console.log(this.state.conf);
   }
   private _getWidth (text: string): Promise<number>{
     this.setState({testText: text});
@@ -84,9 +82,10 @@ export class Display extends React.Component<Props, State> {
        }, 0);
     })
   }
-  private updateIntervalId(play: boolean){
+  private updateIntervalId(){
+    const play = this.props.play;
     if (play && this.state._intervalId === undefined){
-      const _intervalId = setInterval(()=>{ this.nextFrame(4) }, refreshRate);
+      const _intervalId = setInterval(()=>{ this.nextFrame(this.state.direction * 4) }, refreshRate);
       this.setState({_intervalId});
     } 
     else if (play===false && this.state._intervalId !== undefined){
@@ -97,7 +96,7 @@ export class Display extends React.Component<Props, State> {
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.play !== this.props.play) {
-      this.updateIntervalId(this.props.play);
+      this.updateIntervalId();
     }
     if (this.props.animIndex !== prevProps.animIndex 
       && this.props.animIndex !== this.state.animIndex){
@@ -106,7 +105,6 @@ export class Display extends React.Component<Props, State> {
   }
 
   nextFrame(nStep: number=1): void {
-    console.log('nextFrame!', nStep);
     let animIndex = this.state.animIndex;
     animIndex = (animIndex + nStep) % animLength;
     let conf = this.state.conf;
@@ -114,7 +112,6 @@ export class Display extends React.Component<Props, State> {
       const n_1 = conf.length - 1;
       const last = conf[n_1];
       conf = [last].concat(conf.slice(0, n_1));
-      console.log('switch back', JSON.stringify(conf));
       this.setState({conf});
       animIndex += animLength;
     }
@@ -129,11 +126,9 @@ export class Display extends React.Component<Props, State> {
     document.documentElement.style.setProperty('--grey-opacity', (1.0-1.4*scale).toString());
     this.setState({grey: scale < 0.5});
     if(nStep>0 && animIndex<nStep){
-      console.log('switch forward');
        const first = conf[0];
        conf = conf.slice(1);
        conf.push(first);
-       console.log(JSON.stringify(conf));
        this.setState({conf});
     }
     this.setState({animIndex});
