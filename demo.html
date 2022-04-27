@@ -15,6 +15,8 @@
 body{
    padding: 0;
    margin: 0;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
 }
 .dash{
    /* display: none; */
@@ -35,9 +37,6 @@ body{
 .container{
    /*animation: var(--animation-length) zoom infinite;*/
    /*border: 1px red solid;*/
-   font-family: serif; 
-   font-size: 11px;
-   line-height: 11px;
    position: relative;
    color: black;
    /*background:  black;*/
@@ -54,15 +53,11 @@ body{
    /*background-size: calc(var(--base-size) * 70 * 70);*/
 }
 .foreground{
-   /*display:  none;*/
    position: absolute;
-   text-align: center;
    top: 0;
    left: 0;
    right: 0;
    bottom:  0;
-   line-height:  100%;
-   font-size: 220px;
    color: black;  
    background: white;
    mix-blend-mode: screen;
@@ -105,13 +100,16 @@ body{
 </div>
 <div class="dash">
    <div class="frame-counter"></div>
-   <input type="button" value="<<<" onclick="e=>{e.preventDefault();nextFrame(-100)}" />
-   <input type="button" value="<<" onclick="e=>{e.preventDefault();nextFrame(-10)}" />
-   <input type="button" value="<" onclick="e=>{e.preventDefault();nextFrame(-1)}" />
-   <input type="button" value=">" onclick="e=>{e.preventDefault();nextFrame(1)}" />
-   <input type="button" value=">>" onclick="e=>{e.preventDefault();nextFrame(10)}" />
-   <input type="button" value=">>>" onclick="e=>{e.preventDefault();nextFrame(100)}" />
-   <input type="button" value="play/stop" onclick="((e)=>{e.preventDefault();togglePlay()})()" />
+   <input type="button" value="<<<" onclick="(e=>{nextFrame(-100)})()" />
+   <input type="button" value="<<" onclick="(e=>{nextFrame(-10)})()" />
+   <input type="button" value="<" onclick="(e=>{nextFrame(-1)})()" />
+   <input type="button" value=">" onclick="(e=>{nextFrame(1)})()" />
+   <input type="button" value=">>" onclick="(e=>{nextFrame(10)})()" />
+   <input type="button" value=">>>" onclick="(e=>{nextFrame(100)})()" />
+   <input type="button" value="play/stop" onclick="((e)=>{togglePlay()})()" />
+   <input type="button" value="reverse" onclick="(e=>{reverse()})()" />
+   <input id="translateX" type="number" value="0" onkeydown="((e)=>{conf[1].translateX=parseFloat(e.target.value.replace(',', '.')) || conf[1].translateX;nextFrame(0)})(event)">
+   <input id="translateY" type="number" value="0" onkeydown="((e)=>{conf[1].translateY=parseFloat(e.target.value.replace(',', '.')) || conf[1].translateY;nextFrame(0)})(event)">
 </div>
 <div class="test"></div> <!-- to mesure text size proportions -->
 <div class="hidden">
@@ -125,9 +123,9 @@ body{
 <script>
    var svg = document.querySelector('svg').outerHTML.replace(/\n */g, '');
    let conf = [
-      {text: 'Turtle', translateX: -57.6, translateY: 0.9}, // in %
-      {text: 'Giant', translateX: 0.05, translateY: 0.9}, // in %
-      {text: 'Mountain', translateX: 9.7, translateY: 0.9}, // in %
+      {text: 'Turtle', translateX: -43.75, translateY: 0.9}, // in %
+      {text: 'Giant', translateX: 41.4, translateY: 0.9}, // in %
+      {text: 'Mountain', translateX: 54.25, translateY: 0.9}, // in %
    ];
    const getWidth = (text)=>{
       var test = document.querySelector('.test');
@@ -135,7 +133,7 @@ body{
       return new Promise(resolve=>{   
          setTimeout(()=>{
             var dims = test.getBoundingClientRect();
-            resolve(dims.width);
+            resolve(Math.ceil(dims.width));
          }, 0);
       })
    }
@@ -149,6 +147,8 @@ body{
    const style1 = document.querySelector('.one').style;
    const style2 = document.querySelector('.two').style;
    const style3 = document.querySelector('.three').style;
+   const translateXinput = document.querySelector('#translateX');
+   const translateYinput = document.querySelector('#translateY');
    const init = async(initSizes)=>{
       if(initSizes){
          await _initSizes();
@@ -157,6 +157,8 @@ body{
       style1.backgroundImage = conf[0].bg;
       style2.backgroundImage = conf[1].bg;
       style3.backgroundImage = conf[2].bg;
+      translateXinput.value = conf[1].translateX;
+      translateYinput.value = conf[1].translateY;
    };
    init(true);
    const container = document.querySelector('.container');
@@ -210,10 +212,16 @@ body{
       }else{
          clearInterval(t);
          t = undefined;
-         dir *= -1;
       }
    };
-   document.addEventListener('click', togglePlay);
+   const reverse = ()=>{
+      dir *= -1;
+      if(t!==undefined){
+         togglePlay();
+         togglePlay();
+      }
+   }
+   document.querySelector('.container').addEventListener('click', togglePlay);
 </script>
 </body>
 </html>
