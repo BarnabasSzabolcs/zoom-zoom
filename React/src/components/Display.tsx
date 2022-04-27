@@ -86,7 +86,7 @@ export class Display extends React.Component<Props, State> {
   }
   private updateIntervalId(play: boolean){
     if (play && this.state._intervalId === undefined){
-      const _intervalId = setInterval(()=>{ this.nextFrame() }, refreshRate);
+      const _intervalId = setInterval(()=>{ this.nextFrame(4) }, refreshRate);
       this.setState({_intervalId});
     } 
     else if (play===false && this.state._intervalId !== undefined){
