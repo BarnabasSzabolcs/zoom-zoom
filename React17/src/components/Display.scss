@@ -1,0 +1,75 @@
+
+.Display{
+  .c{
+    overflow: hidden;
+    /*transform: scale(2.0);*/
+    height: var(--c-height);
+    width: var(--c-width);
+    max-width: 100%;
+    /*background: grey;*/
+    margin: 0 auto;
+    text-align: center;
+  }
+  .container{
+    /*animation: var(--animation-length) zoom infinite;*/
+    /*border: 1px red solid;*/
+    display:inline-block;
+    font-family: serif; 
+    font-size: 11px;
+    line-height: 11px;
+    position: relative;
+    color: black;
+    /*background:  black;*/
+    overflow: hidden;
+    
+    height: calc(10 * var(--c-height));
+    width: calc(10 * var(--c-width));
+    margin-top: calc( -4.5 * var(--c-height));
+    margin-left: calc( -4.5 * var(--c-width));
+    
+    transform:  scale(0.1);
+    background-position:  center;
+    background-repeat: repeat;
+    /*background-size: calc(var(--base-size) * 70 * 70);*/
+  }
+  .foreground{
+    /*display:  none;*/
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom:  0;
+    line-height:  100%;
+    font-size: 220px;
+    color: black;  
+    background: white;
+    background-repeat: repeat;
+    mix-blend-mode: screen;
+  }
+  .one{
+    background-position: center;
+    background-size: auto calc(var(--base-size) * var(--size-mult-2));
+  }
+  .two{
+    background-size: auto calc(var(--base-size) * var(--size-mult-1));
+  }
+  .three{
+    background-size: auto var(--base-size);
+  }
+  .grey{
+    background-image: none !important;
+    mix-blend-mode: normal;
+  }
+  .grey>div{
+    mix-blend-mode: normal;
+    opacity: var(--grey-opacity);
+  }
+  .test{
+    font: 10px serif;
+    z-index: -1;
+    color: transparent;
+    position: absolute;
+    top: 0;
+  }
+}

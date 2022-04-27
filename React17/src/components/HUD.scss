@@ -1,0 +1,14 @@
+.HUD{
+  flex-grow: 1;
+  .frame-counter{
+    color: #333;
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+  }
+  .important-button{
+    // color: #222;
+    font-size: 15px;
+  }
+}
