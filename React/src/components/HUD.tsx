@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './HUD.css';
+import './HUD.scss';
 
 interface Props{
   direction: number,
@@ -28,14 +28,16 @@ export class HUD extends React.Component<Props> {
     return (
       <div className="HUD">
            <div className="frame-counter">{this.props.animIndex}</div>
-        <input type="button" value="<<<" onClick={()=>this.nextFrame(-100)} />
-        <input type="button" value="<<" onClick={()=>this.nextFrame(-10)} />
-        <input type="button" value="<" onClick={()=>this.nextFrame(-1)} />
-        <input type="button" value=">" onClick={()=>this.nextFrame(1)} />
-        <input type="button" value=">>" onClick={()=>this.nextFrame(10)} />
-        <input type="button" value=">>>" onClick={()=>this.nextFrame(100)} />
-        <input type="button" value="play/stop" onClick={()=>this.togglePlay()} />
-        <input type="button" value="reverse" onClick={()=>this.reverse()} />
+        <div className="input-bar">
+          <input type="button" value="<<<" onClick={()=>this.nextFrame(-100)} />
+          <input className="hide-xs" type="button" value="<<" onClick={()=>this.nextFrame(-10)} />
+          <input type="button" value="<" onClick={()=>this.nextFrame(-1)} />
+          <input type="button" value=">" onClick={()=>this.nextFrame(1)} />
+          <input className="hide-xs" type="button" value=">>" onClick={()=>this.nextFrame(10)} />
+          <input type="button" value=">>>" onClick={()=>this.nextFrame(100)} />
+          <input type="button" value="play/stop" onClick={()=>this.togglePlay()} />
+          <input type="button" value="reverse" onClick={()=>this.reverse()} />
+        </div>
       </div>
     );
   }

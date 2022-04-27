@@ -1,3 +1,6 @@
+*{
+  box-sizing: border-box;
+}
 :root{
   --c-height: 400px;
   --c-width: 600px;
@@ -24,4 +27,60 @@ code {
 
 .hidden{
    display: none;
+}
+@media(max-width: 500px){
+  .hide-xs{
+    display:none;
+  }
+}
+
+:root{
+  --border-color: #ddd;
+  --border-radius: 50px;
+  --primary-color:#0093E9;
+}
+/* basic styles */
+input{
+  outline: 2px solid transparent;
+  transition: all 0.3s;
+  appearance: none;
+  -webkit-appearance: none;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1em 1.5em;
+  font-weight: bold;
+  color: #555;
+  box-shadow: 0px 2px #ccc2;
+  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+}
+input:hover{
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #fff;
+  box-shadow: 0px 2px 4px #0093E933;
+}
+input:focus-visible{
+  z-index: 1;
+  outline: 2px solid var(--primary-color);
+}
+.input-bar{
+  display: flex;
+  width: 100%;
+}
+.input-bar input{
+  border-radius: 0;
+  border-left: 0;
+  flex: 1;
+  padding: 1em 1em;
+}
+.input-bar input:first-child{
+  border-bottom-left-radius: var(--border-radius);
+  border-top-left-radius: var(--border-radius);
+  border-left: 1px solid var(--border-color);
+}
+.input-bar input:last-child{
+  border-bottom-right-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
 }

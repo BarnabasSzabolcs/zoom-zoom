@@ -5,12 +5,15 @@
     /*transform: scale(2.0);*/
     height: var(--c-height);
     width: var(--c-width);
+    max-width: 100%;
     /*background: grey;*/
     margin: 0 auto;
+    text-align: center;
   }
   .container{
     /*animation: var(--animation-length) zoom infinite;*/
     /*border: 1px red solid;*/
+    display:inline-block;
     font-family: serif; 
     font-size: 11px;
     line-height: 11px;
