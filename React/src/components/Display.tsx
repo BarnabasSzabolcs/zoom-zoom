@@ -4,6 +4,7 @@ import './Display.scss';
 
 interface Props{
   animIndex: number,
+  direction: number,
   play: boolean,
   onAnimIndexChange: (animIndex: number)=>void
 }
@@ -14,7 +15,6 @@ interface ConfItem{
   style: React.CSSProperties
 }
 interface State{
-  direction: number,
   conf: ConfItem[],
   grey: boolean,
   containerStyle: React.CSSProperties,
@@ -49,7 +49,6 @@ export class Display extends React.Component<Props, State> {
       conf.push({style: {backgroundImage: 'none'}, ...o})
     }
     this.state = {
-      direction: 1,
       conf,
       grey: false,
       containerStyle: {transform: 'none'},
@@ -85,7 +84,7 @@ export class Display extends React.Component<Props, State> {
   private updateIntervalId(){
     const play = this.props.play;
     if (play && this.state._intervalId === undefined){
-      const _intervalId = setInterval(()=>{ this.nextFrame(this.state.direction * 4) }, refreshRate);
+      const _intervalId = setInterval(()=>{ this.nextFrame(this.props.direction * 3) }, refreshRate);
       this.setState({_intervalId});
     } 
     else if (play===false && this.state._intervalId !== undefined){
@@ -95,7 +94,8 @@ export class Display extends React.Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (prevProps.play !== this.props.play) {
+    if (prevProps.play !== this.props.play 
+      || prevProps.direction !== this.props.direction) {
       this.updateIntervalId();
     }
     if (this.props.animIndex !== prevProps.animIndex 

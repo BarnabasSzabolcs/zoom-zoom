@@ -6,7 +6,8 @@ import './App.css';
 
 interface State{
   animIndex: number,
-  play: boolean
+  play: boolean,
+  direction: number
 }
 interface Props{
 }
@@ -15,6 +16,7 @@ class App extends React.Component<Props, State> {
   constructor(props: Props){
     super(props)
     this.state = {
+      direction: 1,
       animIndex: 0,
       play: false
     }
@@ -24,13 +26,16 @@ class App extends React.Component<Props, State> {
       <div className="App">
         <Display 
           animIndex={this.state.animIndex}
+          onAnimIndexChange={animIndex=>this.setState({animIndex})}
           play={this.state.play}
-          onAnimIndexChange={animIndex=>this.setState({animIndex})}/>
+          direction={this.state.direction}/>
         <HUD 
           animIndex={this.state.animIndex}
           onAnimIndexChange={animIndex=>this.setState({animIndex})}
           play={this.state.play}
           onPlayChange={play=>this.setState({play})}
+          direction={this.state.direction}
+          onDirectionChange={direction=>this.setState({direction})}
           />
       </div>
     );

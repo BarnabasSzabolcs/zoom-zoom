@@ -3,6 +3,8 @@ import React from 'react';
 import './HUD.css';
 
 interface Props{
+  direction: number,
+  onDirectionChange: (direction: number)=>void,
   animIndex: number,
   onAnimIndexChange: (animIndex: number)=>void,
   play: boolean,
@@ -17,6 +19,11 @@ export class HUD extends React.Component<Props> {
   togglePlay(){
     this.props.onPlayChange(!this.props.play)
   }
+
+  reverse(){
+    this.props.onDirectionChange(-this.props.direction)
+  }
+
   render(){
     return (
       <div className="HUD">
@@ -28,6 +35,7 @@ export class HUD extends React.Component<Props> {
         <input type="button" value=">>" onClick={()=>this.nextFrame(10)} />
         <input type="button" value=">>>" onClick={()=>this.nextFrame(100)} />
         <input type="button" value="play/stop" onClick={()=>this.togglePlay()} />
+        <input type="button" value="reverse" onClick={()=>this.reverse()} />
       </div>
     );
   }
