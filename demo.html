@@ -133,7 +133,7 @@ body{
       return new Promise(resolve=>{   
          setTimeout(()=>{
             var dims = test.getBoundingClientRect();
-            resolve(Math.ceil(dims.width));
+            resolve(dims.width);
          }, 0);
       })
    }
