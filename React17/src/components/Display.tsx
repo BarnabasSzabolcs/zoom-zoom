@@ -44,17 +44,14 @@ export const Display =(props: Props) => {
   const [grey, setGrey] = useState(false);
   const [containerStyle, setContainerStyle] = useState<CSSProperties>({transform: 'none'});
   const [testText, setTestText] = useState('');
-  // const [ _intervalId, setIntervalId] = useState<ReturnType<typeof setInterval> | undefined>(undefined);
   const [animIndex, setAnimIndex] = useState(0);
 
   // componentDidMount
   useEffect(() => {
-    const doIt =async ()=>{ 
+    (async ()=>{ 
       await _initSizes();
       nextFrame(0);
-      // updateIntervalId();
-    };
-    doIt();
+    })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
