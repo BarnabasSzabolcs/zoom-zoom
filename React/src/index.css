@@ -53,6 +53,7 @@ input{
   color: #555;
   box-shadow: 0px 2px #ccc2;
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
   position: relative;
 }
 input:hover{
