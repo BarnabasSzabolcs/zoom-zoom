@@ -123,9 +123,9 @@ body{
 <script>
    var svg = document.querySelector('svg').outerHTML.replace(/\n */g, '');
    let conf = [
-      {text: 'Turtle', translateX: -43.75, translateY: 0.9}, // in %
-      {text: 'Giant', translateX: 41.4, translateY: 0.9}, // in %
-      {text: 'Mountain', translateX: 54.25, translateY: 0.9}, // in %
+      {text: 'Turtle', translateX: -57.6, translateY: 0.9}, // in %
+      {text: 'Giant', translateX: 0.05, translateY: 0.9}, // in %
+      {text: 'Mountain', translateX: 9.7, translateY: 0.9}, // in %
    ];
    const getWidth = (text)=>{
       var test = document.querySelector('.test');
@@ -208,7 +208,7 @@ body{
    let dir = 1;
    const togglePlay = ()=>{
       if (t===undefined){
-         t = setInterval(()=>{nextFrame(dir)}, 10);
+         t = setInterval(()=>{nextFrame(dir*4)}, 20);
       }else{
          clearInterval(t);
          t = undefined;
